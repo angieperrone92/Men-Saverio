@@ -144,11 +144,8 @@ color: white; font-size: 1.2rem; width: 36px; height: 36px;
 border-radius: 50%; cursor: pointer; display: flex;
 align-items: center; justify-content: center; font-weight: bold;
 }
-#admin-overlay {
-display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-z-index: 10000; justify-content: center; align-items: center;
-}
-#admin-overlay.open { display: flex; }
+#admin-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.6); z-index: 10000; }
+#admin-overlay.open { display: flex !important; justify-content: center; align-items: center; }
 #admin-box {
 background: white; border-radius: 16px; padding: 24px;
 width: min(95vw, 500px); max-height: 85vh; overflow-y: auto;
@@ -832,7 +829,17 @@ padding: 12px 0 4px; margin-top: 8px;
 var ADMIN_PWD = 'Believeit92!';
 
 function openAdmin() {
-  document.getElementById('admin-overlay').classList.add('open');
+  var overlay = document.getElementById('admin-overlay');
+  overlay.style.display = 'flex';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.right = '0';
+  overlay.style.bottom = '0';
+  overlay.style.background = 'rgba(0,0,0,0.6)';
+  overlay.style.zIndex = '99999';
+  overlay.style.justifyContent = 'center';
+  overlay.style.alignItems = 'center';
   document.getElementById('admin-pwd').value = '';
   document.getElementById('admin-err').textContent = '';
   document.getElementById('admin-login-section').style.display = 'flex';
@@ -841,8 +848,10 @@ function openAdmin() {
 }
 
 function closeAdmin() {
-  document.getElementById('admin-overlay').classList.remove('open');
+  document.getElementById('admin-overlay').style.display = 'none';
 }
+
+
 
 function checkPwd() {
   var pwd = document.getElementById('admin-pwd').value;
